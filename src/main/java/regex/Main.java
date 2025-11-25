@@ -25,10 +25,6 @@ public class Main {
     }
 
     // Method 1 for checking if a string matches a regex: using Pattern.matches
-    // TODO: Modify this code to check if the given string is non-empty, contains at least
-    //       one lower case letter, at least one upper case letter, and at least one digit. If the
-    //       string has all of these properties, the method should return true. If it is missing one
-    //       or more properties, it should return false.
 
     /**
      * Returns whether a given string is non-empty, contains one lower case letter,
@@ -39,7 +35,27 @@ public class Main {
      */
     public static boolean checkForPassword(String str, int minLength) {
         final boolean propertyOne = Pattern.matches("REPLACE WITH CORRECT REGEX", str);
-        // as needed, modify this code.
+        boolean digit = false;
+        boolean capital = false;
+
+        if (str.length() < minLength) {
+            return propertyOne;
+        }
+
+        for (int x=0; x < str.length(); x++) {
+            char ch = str.charAt(x);
+            if (Character.isDigit(ch)) {
+                digit = true;
+            }
+            if (Character.isUpperCase(ch)) {
+                capital = true;
+            }
+        }
+
+        if (digit && capital) {
+            return true;
+        }
+
         return propertyOne;
     }
 
