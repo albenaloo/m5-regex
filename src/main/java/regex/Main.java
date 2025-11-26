@@ -34,36 +34,24 @@ public class Main {
      * @return whether the string satisfies the password requirements
      */
     public static boolean checkForPassword(String str, int minLength) {
-        final boolean propertyOne = Pattern.matches("REPLACE WITH CORRECT REGEX", str);
-        boolean digit = false;
-        boolean capital = false;
+        boolean len;
 
-        if (str.length() < minLength) {
-            return propertyOne;
+        if (str == null) {
+            return false;
+        }
+        else {
+            int x = str.length();
+            len = x >= minLength && (x > 0);
         }
 
-        for (int x=0; x < str.length(); x++) {
-            char ch = str.charAt(x);
-            if (Character.isDigit(ch)) {
-                digit = true;
-            }
-            if (Character.isUpperCase(ch)) {
-                capital = true;
-            }
-        }
+        final boolean propertyOne = Pattern.matches(".*[a-z].*", str);
+        final boolean propertyTwo = Pattern.matches(".*[A-Z]+.*", str);
+        final boolean propertyThree = Pattern.matches(".*[0-9]+.*", str);
 
-        if (digit && capital) {
-            return true;
-        }
-
-        return propertyOne;
+        return propertyOne && len && propertyTwo && propertyThree;
     }
 
     // Method 2 for checking if a string conforms to a regex: using Matcher.find
-    // TODO: Modify this method to return a list of all email addresses contained in the
-    //       input string that end with "@mail.utoronto.ca" or "@utoronto.ca" with at least one
-    //       character before the "@" symbol. The email addresses should be in the order they
-    //       appear in the string.
 
     /**
      * Returns a list of email addresses that occur in a given string.
@@ -71,7 +59,10 @@ public class Main {
      * @return a list containing the email addresses in the string.
      */
     public static List<String> extractEmails(String str) {
-        final Pattern pattern = Pattern.compile("REPLACE WITH CORRECT REGEX");
+        if (str == null) {
+            return new ArrayList<>();
+        }
+        final Pattern pattern = Pattern.compile("[a-zA-Z0-9]+@(mail\\.)*utoronto\\.ca");
         final Matcher matcher = pattern.matcher(str);
         final List<String> result = new ArrayList<>();
         while (matcher.find()) {
